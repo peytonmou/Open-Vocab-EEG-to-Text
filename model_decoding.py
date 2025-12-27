@@ -79,7 +79,7 @@ class BrainTranslator(nn.Module):
 from transformers import T5Tokenizer
 """ main architecture for open vocabulary EEG-To-Text decoding"""
 class T5Translator(nn.Module):
-    def __init__(self, pretrained_layers, in_feature = 840, decoder_embedding_size = 1024, additional_encoder_nhead=8, additional_encoder_dim_feedforward = 2048):
+    def __init__(self, pretrained_layers, in_feature = 64, decoder_embedding_size = 1024, additional_encoder_nhead=8, additional_encoder_dim_feedforward = 2048):
         super(T5Translator, self).__init__()
         
         self.pretrained = pretrained_layers
@@ -94,18 +94,35 @@ class T5Translator(nn.Module):
         # self.positional_embedding = PositionalEncoding(in_feature)
 
         self.fc1 = nn.Linear(in_feature, decoder_embedding_size)
+    
+    def addin_forward(self, input_embeddings_batch, input_masks_invert):
+        """
+        input_embeddings_batch: [B, T, F] or [B, T, C, F]
+        """
 
-    def addin_forward(self,input_embeddings_batch,  input_masks_invert):
-        """input_embeddings_batch: batch_size*Seq_len*840"""
-        """input_mask: 1 is not masked, 0 is masked"""
-        """input_masks_invert: 1 is masked, 0 is not masked"""
+        print("input_embeddings_batch shape", input_embeddings_batch.shape)
+    
+        if input_embeddings_batch.dim() == 4:
+            # [B, T, C, F] → average over C
+            input_embeddings_batch = input_embeddings_batch.mean(dim=2)
+    
+        assert input_embeddings_batch.dim() == 3, input_embeddings_batch.shape
+    
+        print(f"[DEBUG] EEG input to encoder: {input_embeddings_batch.shape}")
+    
+        # mask must be [B, T]
+        if input_masks_invert.dim() > 2:
+            input_masks_invert = input_masks_invert.view(
+                input_embeddings_batch.size(0),
+                input_embeddings_batch.size(1)
+            )
+    
+        encoded_embedding = self.additional_encoder(
+            input_embeddings_batch,
+            src_key_padding_mask=input_masks_invert
+        )
 
-        # input_embeddings_batch = self.positional_embedding(input_embeddings_batch)
-        # use src_key_padding_masks
-        encoded_embedding = self.additional_encoder(input_embeddings_batch, src_key_padding_mask=input_masks_invert)
-
-        # encoded_embedding = self.additional_encoder(input_embeddings_batch)
-        encoded_embedding = F.relu(self.fc1(encoded_embedding))
+        encoded_embedding = F.relu(self.fc1(encoded_embedding))  # → [B, T, 1024]    
         return encoded_embedding
 
     @torch.no_grad()
@@ -147,7 +164,7 @@ class T5Translator(nn.Module):
             streamer=streamer,
             negative_prompt_ids=negative_prompt_ids,
             negative_prompt_attention_mask=negative_prompt_attention_mask,
-            max_new_tokens=3,
+            # max_new_tokens=3,
             eos_token_id=self.tokenizer.eos_token_id,
             pad_token_id=self.tokenizer.pad_token_id,
             **kwargs,)

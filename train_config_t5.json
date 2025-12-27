@@ -2,19 +2,19 @@
   "subjects": "ALL",
   "eeg_type": "GD",
   "eeg_bands": ["_t1", "_t2", "_a1", "_a2", "_b1", "_b2", "_g1", "_g2"],
-  "task_name": "task1",
+  "task_name": "task1", 
   "model_name": "T5Translator",
   "train_input": "clean",
 
-  "num_epoch_step1": 20,
-  "num_epoch_step2": 30,
+  "num_epoch_step1": 5,
+  "num_epoch_step2": 10,
 
   "learning_rate_step1": 0.00005,
   "learning_rate_step2": 0.0000005,
 
   "batch_size": 32,
 
-  "save_path": "/projects/sciences/computerscience/liesaputra_lab/moupe847/open_vocab/saved_models/best",
+  "save_path": "/projects/sciences/computerscience/liesaputra_lab/moupe847/open_vocab/saved_models/last",
 
   "cuda": "cuda:0",
 
@@ -22,5 +22,5 @@
   "skip_step_one": false,
   "load_step1_checkpoint": false,
 
-  "checkpoint_file": "randinit_task1_finetune_T5Translator_2steptraining_b32_20_30_5e-05_5e-07_unique_sent_clean.pt"
+  "checkpoint_file": "randinit_task1_finetune_T5Translator_2steptraining_b32_15_25_0.005_0.005_unique_sent_clean.pt"
 }
