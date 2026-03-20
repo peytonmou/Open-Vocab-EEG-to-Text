@@ -7,35 +7,122 @@
 Deep learning models for decoding single-word EEG signals into text. This repository provides complete pipeline from raw EEG conversion to model training and evaluation.
 
 
-## 🚀 Quick Start
+## 📂 Project Structure
 
-### Step 1: Download Dataset
+```
+EEG-to-Word_Decoding/
+├── data/                # Processed EEG data (pickle files)
+├── models/              # Saved trained models
+├── notebooks/           # Training & evaluation notebooks
+├── edf2pickle.py        # Preprocessing script
+├── train.ipynb          # Model training notebook
+├── eval.ipynb           # Model evaluation notebook
+└── README.md
+```
+
+---
+## 🚀 Getting Started
+
+### 1. Clone Dataset
+
 ```bash
-# Install git lfs first
+# Install Git LFS (if not installed)
 git lfs install
-git clone https://huggingface.co/datasets/peytonmou/EEG2Text
 
-### Step 2: Clone Repository
+# Clone dataset
+git clone https://huggingface.co/datasets/peytonmou/EEG2Text
+```
+
+---
+
+### 2. Clone Repository
+
+```bash
 git clone https://github.com/peytonmou/EEG-to-Word_Decoding.git
 cd EEG-to-Word_Decoding
+```
 
-### Step 3: Convert EDF to pickle
-python edf2pickle.py
+---
 
-### Step 4: Train Model
-Update file paths in train.ipynb:
-Path to generated pickle files
-Folder path for saving trained models
-Run the training notebook or script
+### 3. Set Up Environment
 
-### Step 5: Evaluate Model
-Update model loading path in eval.ipynb
-Run evaluation notebook
+```bash
+python -m venv venv
 
-### Requirements
+# Activate environment
+# Mac/Linux:
+source venv/bin/activate
+
+# Windows:
+venv\Scripts\activate
+
+# Install dependencies
 pip install torch numpy scipy scikit-learn
+```
 
+---
 
+### 4. Data Preprocessing
 
+Convert raw EDF files into pickle format:
+
+```bash
+python edf2pickle.py
+```
+
+---
+
+### 5. Train Model
+
+1. Open `train.ipynb`
+2. Update the following paths:
+
+   * Path to generated pickle files
+   * Directory for saving trained models
+3. Run the notebook (or convert to script if preferred)
+
+---
+
+### 6. Evaluate Model
+
+1. Open `eval.ipynb`
+2. Update the model loading path
+3. Run the notebook
+
+---
+
+## ⚙️ Requirements
+
+* Python 3.8+
+* torch
+* numpy
+* scipy
+* scikit-learn
+
+Install all dependencies:
+
+```bash
+pip install torch numpy scipy scikit-learn
+```
+
+---
+
+## 📊 Workflow
+
+```
+Raw EEG Data (EDF)
+        ↓
+Preprocessing (edf2pickle.py)
+        ↓
+Pickle Data
+        ↓
+Model Training (train.ipynb)
+        ↓
+Trained Model
+        ↓
+Evaluation (eval.ipynb)
+```
+
+---
 
 
