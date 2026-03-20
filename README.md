@@ -11,9 +11,9 @@ Deep learning models for decoding single-word EEG signals into text. This reposi
 
 ```
 EEG-to-Word_Decoding/
-├── data_singleword.py/  # Processed EEG data
-├── edf2pickle.py        # Convert EDF to pickle
-├── model_decoding.py/   # T5Translator
+├── data_singleword.py   # Processed EEG data
+├── edf2pickle.ipynb     # Convert EDF to pickle
+├── model_decoding.py    # T5Translator
 ├── train.ipynb          # Model training notebook
 ├── eval.ipynb           # Model evaluation notebook
 └── README.md
