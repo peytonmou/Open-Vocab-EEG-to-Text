@@ -1,59 +1,41 @@
-EEG-to-Word Decoding
+# EEG-to-Word Decoding
 
-This repository provides the implementation for EEG-to-Word decoding using deep learning models trained on single-word EEG data. It includes scripts for converting raw EEG files into pickle format, training decoding models, and evaluating performance.
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-red.svg)](https://pytorch.org/)
+[![HuggingFace](https://img.shields.io/badge/🤗-Dataset-yellow.svg)](https://huggingface.co/datasets/peytonmou/EEG2Text)
 
-Repository Structure
-.
-├── data_singleword.py     # Data loading and preprocessing
-├── model_decoding.py      # Model architecture
-├── edf2pickle.py          # Convert raw EEG (.edf) files to pickle format
-├── train_config_t5.json   # Training configuration file
-├── train.ipynb            # Training notebook 
-├── eval.ipynb             # Evaluation notebook 
-└── README.md
+Deep learning models for decoding single-word EEG signals into text. This repository provides complete pipeline from raw EEG conversion to model training and evaluation.
 
-Step 1: Download the dataset from Hugging Face:
-https://huggingface.co/datasets/peytonmou/EEG2Text
 
-Using Git:
+## 🚀 Quick Start
+
+### Step 1: Download Dataset
+```bash
+# Install git lfs first
 git lfs install
 git clone https://huggingface.co/datasets/peytonmou/EEG2Text
 
-Step 2: Clone the code repository:
+### Step 2: Clone Repository
 git clone https://github.com/peytonmou/EEG-to-Word_Decoding.git
 cd EEG-to-Word_Decoding
-Place the dataset folder in the same directory as this repository:
-├── EEG-to-Word_Decoding
-│   ├── train.py
-│   ├── eval.py
-│   ├── edf2pickle.py
-│   └── model_decoding.py
-└── EEG2Text   ← dataset folder
 
-Step 3: Convert EDF Files to Pickle
+### Step 3: Convert EDF to pickle
 python edf2pickle.py
-This will convert raw EEG files into serialized .pkl files for faster loading and training.
 
-Step 4: Train the Model
-Before training, update the file paths in train.py:
+### Step 4: Train Model
+Update file paths in train.ipynb:
+Path to generated pickle files
+Folder path for saving trained models
+Run the training notebook or script
 
-Path to the generated pickle files
-Folder path to save trained models
+### Step 5: Evaluate Model
+Update model loading path in eval.ipynb
+Run evaluation notebook
 
-Then run:
-python train.py
-
-Step 5: Evaluate the Model
-Before evaluation, update the model loading path in eval.py to point to the saved model:
-Then run:
-python eval.py
-The evaluation results can be reproduced using the provided dataset and trained model.
-
-Recommended environment:
-Python ≥ 3.8
-PyTorch
-NumPy
-SciPy
-scikit-learn
-
+### Requirements
 pip install torch numpy scipy scikit-learn
+
+
+
+
+
