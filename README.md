@@ -37,8 +37,8 @@ git clone https://huggingface.co/datasets/peytonmou/EEG2Text
 ### 2. Clone Repository
 
 ```bash
-git clone https://github.com/peytonmou/EEG-to-Word_Decoding.git
-cd EEG-to-Word_Decoding
+git clone https://github.com/peytonmou/Open-Vocab-EEG-to-Text.git
+cd Open-Vocab-EEG-to-Text
 ```
 
 ---
